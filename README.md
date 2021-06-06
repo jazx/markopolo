@@ -14,6 +14,7 @@ Visitar https://www.google.com/chrome/index.html
 para descargar e instalar el archivo DEB.
 
 3- Clonar repositorio
+
 ~ git clone http://github.com/jazx/markopolo
 
 
