@@ -3,6 +3,8 @@
 INGRESO=$2
 USUARIO=$1
 
+aplay `ls ../voice/working/* | shuf -n 1`
+
 notify-send 'Markopolo' 'Buscando en Google'
 
 TARGET=`echo $INGRESO | sed s/^.*internet//g`

@@ -1,4 +1,12 @@
-pyaudio (pip) python3
+portaudio-dev 
+python3-dev (ubuntu/mint)
+
+pip3 install setuptools
+pip3 install pyaudio 
+
+libatlas-base-dev
+
+
 screen
 google-chrome
 wmctrl

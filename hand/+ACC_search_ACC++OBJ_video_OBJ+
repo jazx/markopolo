@@ -11,4 +11,6 @@ TARGET=`echo $INGRESO | sed 's/\(^.*videos+de+\|^.*youtube+\)//g'`
 
 firefox --new-tab "https://www.youtube.com/results?search_query=$TARGET"
 
+aplay `ls ../voice/endwork+/* | shuf -n 1`
+
 echo 'Buscando en Youtube...'

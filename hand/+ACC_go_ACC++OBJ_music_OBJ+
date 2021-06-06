@@ -7,4 +7,6 @@ notify-send 'Markopolo' 'Abriendo Spotify'
 
 spotify 2&> /dev/null &
 
+aplay `ls ../voice/endwork/* | shuf -n 1`
+
 echo 'Spotify fue abierto'
