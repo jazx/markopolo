@@ -9,6 +9,6 @@ notify-send 'Markopolo' 'Buscando en Google'
 
 TARGET=`echo $INGRESO | sed s/^.*internet//g`
 
-firefox --new-tab "https://www.google.com/search?q=$TARGET"
+firefox --new-tab "https://www.google.com/search?q=$TARGET" &
 
 echo 'Google fue abierto'
