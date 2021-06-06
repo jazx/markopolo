@@ -1,0 +1,6 @@
+#!/bin/bash
+
+INGRESO="`echo $2 | sed 's/+/ /g'`"
+USUARIO=$1
+
+echo $USUARIO, no entiendo que quieres decir con \"$INGRESO\"

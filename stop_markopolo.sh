@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo '--> Cerrando Markopolo'
+# cierra navegador
+echo '--> Cerrando Ear (navegador)'
+kill `ps aux | grep 'google-chrome --app=http://localhost:9081/listener.html' | grep -v grep | awk '{print $2}'` 2> /dev/null
+
+echo '--> Cerrando Ear (pyserver)'
+kill `ps aux | grep 'SCREEN -c ../../config/screen_conf -S markopolo_webclient -d -m python3 -m http.server 9081' | grep -v grep | awk '{print $2}'` 2> /dev/null
+
+echo '--> Cerrando Brain'
+kill `ps aux | grep 'SCREEN -c ../config/screen_conf -S markopolo_brain -d -m ./markopolo.py' | grep -v grep | awk '{print $2}'` 2> /dev/null
+
+echo '--> Cerrando Snowboy'
+kill `ps aux | grep 'SCREEN -c ../../config/screen_conf -S markopolo_snowboy -d -m ./markopolo-hotword-deamon.py' | grep -v grep | awk '{print $2}'` 2> /dev/null
+

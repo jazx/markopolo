@@ -1,0 +1,30 @@
+Los archivos de configuracion deben editarse con cuidado
+
+>>>>>>>>>>>>>>>
+commands.conf - 
+Define los comandos rapidos. Se activan sin analisis de sintaxis, desde el modulo
+llamado 'spinal_reflex'.
+
+>>>>>>>>>>>>>>>>>
+dictionary.conf - 
+Define los TAGS para el analisis de sintaxis, desde el modulo 'dicc', llamado a su vez por
+'wernicke'.
+
+>>>>>>>>>>>>>>>>>>>
+markopolo_conf.py -
+Define el puerto y el password del servidor 'brain'. Cuidado de no confundir con el puerto
+de 'Markopolo Ear'. 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Markopolo Ear es un mini server y cliente escrito en html y javascript. La configuracion del
+usuario, password y puerto puede modificarse editado (con cuidado!) el archivo
+
+		'ear/webclient/listener.html'
+
+... especificamente las lineas de codigo de la 56 a la 63. 
+
+
+>>>>>>>>>>>>>
+screen_conf -
+Establece una configuracion personalizada para la aplicacion 'screen' dentro de la cual se
+ejecutan todos los programas

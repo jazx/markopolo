@@ -1,0 +1,10 @@
+#!/bin/bash
+
+INGRESO=$2
+USUARIO=$1
+
+notify-send 'Markopolo' 'Abriendo Spotify'
+
+spotify 2&> /dev/null &
+
+echo 'Spotify fue abierto'

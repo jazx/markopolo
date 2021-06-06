@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8">
+    <link rel="icon" href="data:;base64,=">
+    <base target="cont"><title>Markopolo Ear</title>
+    <script type="text/javascript" src="jquery.js"></script>
+<style>
+  .transpa  {
+    background-color: transparent;
+    border: 1px solid #FF6262;
+    color: #FF0000;
+    font-family: DejaVu Sans;
+    font-size: 12px;
+}    
+
+  .parcialstyle  {
+    border: 0px solid grey;
+    color: #FF6262;
+    font-family: DejaVu Sans; 
+    font-size: 12px;
+}
+
+  .respuestastyle  {
+    border: 0px solid grey;
+    color: #000000;
+    font-family: DejaVu Sans;
+    font-size: 12px;
+}
+  .mostrar  {
+    border: 0px solid grey;
+    margin-left: 10px;
+    color: #000000;
+    font-family: DejaVu Sans;
+    font-size: 12px;
+}
+
+</style></head>
+<body style="color: rgb(255, 255, 255); background-color: rgb(255, 255, 255);" alink="#990000" link="#990000" vlink="#990000">
+<table style="text-align: center; vertical-align: middle;" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td colspan="1" rowspan="2" style="vertical-align: middle; text-align:left; height: 24px; width: 28px;"><img src="./comm-slash.png"  id="acc"/></td>
+<td colspan="1" rowspan="2" style="vertical-align: middle; text-align:center; height: 24px; width: 15%;"><small><input size="45" class="transpa" id="finalTranscript" onkeypress="if(event.keyCode==13) {javascript:exeorden_tiped();}"></small></td>
+<td colspan="1" rowspan="2" style="vertical-align: middle; text-align:center; height: 24px;"><small><div class="parcialstyle" id="resultadoparcial">(off)</div></small></td>
+<td colspan="1" rowspan="2" style="vertical-align: middle; text-align:left; height: 24px; width: 39%;"><div class="mostrar" id="showall"></div></td>
+<td colspan="1" rowspan="2" style="vertical-align: middle; text-align:center; height: 24px; width: 34px;"><img src="./comm-static.png"  id="separa"/></td>
+<td colspan="1" rowspan="2" style="vertical-align: middle; text-align:left; height: 24px; width: 39%;"><div class="respuestastyle" id="balresp"></div></td>
+
+</tr>
+</tbody>
+</table>
+
+
+<script>
+
+// Variables de configuracion - deben estar de acuerdo a lo establecido en 'markopolo/config'
+
+// mpport es el puerto en el que corre el servidor "brain"
+var mpport = '9080'
+// mpuser es el usuario que generara la orden en el cliente web
+var mpuser = 'jazx'
+// mppass es la clave del servidor 'brain'
+var mppass = 'venecia'
+        		
+
+
+
+
+
+				function exeorden_tiped(){
+        			// Obtenemos el valor del texto por el id
+        			var porId=document.getElementById("finalTranscript").value;
+
+
+					// hacemos get al servidor
+					console.log('voy a hacer el get request')
+               const mygetrq = new XMLHttpRequest();
+               //var urlbase = 'http://localhost:9080/PSW_venecia_PSWUSR_marcos_USRCOM_';
+               var urlbase = 'http://localhost:' + mpport + '/PSW_' + mppass + '_PSWUSR_' + mpuser + '_USRCOM_';
+               var urlcontenido = porId.replace(/ /g, "+") ;
+               var urlcierre = '_COM';
+					const url= urlbase + urlcontenido + urlcierre;
+					mygetrq.open("GET", url);
+					mygetrq.send();
+					
+					mygetrq.onreadystatechange = (e) => {
+					console.log('ahora viene la respuesta del get a: ' + url)
+					
+					var recibido = mygetrq.responseText;
+				  	
+				  	console.log('recibido tiene: ' + recibido)					
+							  	
+				  	// Imprimir en pantalla      
+					document.getElementById("balresp").innerHTML=recibido;
+					}
+				};
+	
+	
+	
+        window.onload = function () {
+        
+				var loopeterno = true;        
+        
+				const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+				async function repeatedGreetingsLoop() {
+
+					while (true)
+					{
+					testfile()
+					$('#balresp').load('response.txt');
+					//console.log("funcion con delay de 1seg")
+					await sleepNow(750)	
+					}
+				}
+
+
+				function doesFileExist(urlToFile) {
+    				var xhr = new XMLHttpRequest();
+    				xhr.open('HEAD', urlToFile, false);
+    				xhr.send();
+     
+    				if (xhr.status == "404") {
+        				return false;
+    				} else {
+        				return true;
+    				}
+				}
+
+
+				function testfile()
+					{
+						var result = doesFileExist("sb.touch");
+
+						if (result == true) {
+	    					// file exists!
+       					
+       					recognition.start()
+       					
+       					//document.getElementById("showbox").innerHTML="escuchando"
+						}else {
+		 					//document.getElementById("showbox").innerHTML="no escucho"
+						}
+		
+					}
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+ 
+            var recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = "es-AR";
+            
+            // poner aqui lo que quiero que inicio automaticamente
+            
+            repeatedGreetingsLoop()
+            
+            
+
+				//document.getElementById('mic').src = "mic.png";
+				document.getElementById('acc').src = "comm-slash.png";
+			
+				
+				var p = document.getElementById('acc');
+			
+				p.onclick = function () {
+					recognition.start();	
+				}
+
+			
+				function stoprecog() {
+			
+					console.log("inciando funcion stopcog");
+					recognition.stop();
+					document.getElementById("resultadoparcial").innerHTML=""
+            	let etiquetaAudiof = document.createElement("audio")
+            	etiquetaAudiof.setAttribute("src", "./endlisten.wav")
+            	etiquetaAudiof.play()
+				}				
+			
+				
+			
+            
+ 
+            //events
+ 
+            recognition.onaudiostart = function (event) {
+                console.log("onaudiostart");
+            };
+ 
+            recognition.onsoundstart = function (event) {
+                console.log("onsoundstart");
+            };
+ 
+            recognition.onspeechstart = function (event) {
+                console.log("onspeechstart");
+            };
+ 
+            recognition.onspeechend = function (event) {
+                console.log("onspeechend");
+            };
+ 
+            recognition.onsoundend = function (event) {
+                console.log("onsoundend");
+ 
+            };
+ 
+            recognition.onaudioend = function (event) {
+                console.log("onaudioend");
+ 
+            };
+ 
+            recognition.onresult = function (event) {
+                console.log("onresult");
+                var interimResult = '',
+                    finalResult = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalResult = event.results[i][0].transcript;
+                        
+                        if (finalResult != "") {
+                        
+                        document.getElementById("showall").innerHTML=finalResult;
+                        
+                        console.log('iniciando get')
+                        
+                        const mygetrq = new XMLHttpRequest();
+                        //var urlbase = 'http://localhost:9080/PSW_venecia_PSWUSR_marcos_USRCOM_';
+                        var urlbase = 'http://localhost:' + mpport + '/PSW_' + mppass + '_PSWUSR_' + mpuser + '_USRCOM_';
+                        var urlcontenido = finalResult.replace(/ /g, "+") ;
+                        var urlcierre = '_COM';
+								const url= urlbase + urlcontenido + urlcierre;
+								mygetrq.open("GET", url);
+								mygetrq.send();
+
+								mygetrq.onreadystatechange = (e) => {
+									console.log(mygetrq.responseText)
+									var recibido = mygetrq.responseText;
+									
+									// Imprimir en pantalla
+									document.getElementById("balresp").innerHTML=recibido;
+									}
+								}
+						
+                    	
+                    	} else {
+                        interimResult += event.results[i][0].transcript;
+                    	}
+                }
+ 
+                finalTranscript.value = finalResult;
+                
+                //document.getElementById("resultadoparcial").innerHTML=interimResult;
+                document.getElementById("showall").innerHTML=interimResult;
+                
+                var porId=document.getElementById("finalTranscript").value;
+                document.getElementById("finalTranscript").innerHTML=finalResult;
+                
+                
+                
+						
+            };
+ 
+            recognition.onnomatch = function (event) {
+                console.log("onnomatch");
+            };
+ 
+            recognition.onerror = function (event) {
+                console.log("onerror: " + event);
+ 
+            };
+ 
+            recognition.onstart = function (event) {
+                document.getElementById('acc').src = "wave2.gif";
+                let etiquetaAudio = document.createElement("audio")
+                etiquetaAudio.setAttribute("src", "./listen.wav")
+                etiquetaAudio.play()
+                
+                document.getElementById("resultadoparcial").innerHTML="(on) >";
+                console.log("onstart");
+                
+                setTimeout(() => stoprecog(), 5000)
+                
+            };
+ 
+            recognition.onend = function (event) {
+                console.log("onend");
+                document.getElementById('acc').src = "comm-slash.png";
+                document.getElementById("resultadoparcial").innerHTML="(off)";
+                
+                // recarga la pagina y setea todo nuevamente
+                window.location.reload();
+            };
+        };
+
+</script>
+    
+  
+    
+    
+
+</body></html>

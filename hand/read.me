@@ -1,0 +1,42 @@
+Los archivo aqui presentes deben tener permisos de ejecucion.
+Use el comando 'chmod +x archivo' para otorgarlo.
+
+Los nombres deben coincidir con los tags. Vea la salida del servidor para definir el nombre.
+Por ejemplo, vea esta salida:
+
+----------------------------------------------------------------------------
+1. Wernicke Area ACTIVE
+2. Recived: pone+musica
+3. User: marcos
+4. Tags: <ACC_go_ACC><OBJ_music_OBJ>
+5. File < ../hand/+ACC_go_ACC++OBJ_music_OBJ+ > not found. Running +NOTAGS+
+6. Exec: ../hand/+NOTAGS+ marcos pone+musica
+7.  >>>: b'marcos, no entiendo que quieres decir con "pone musica"\n'
+----------------------------------------------------------------------------
+
+La linea 1 indica que el procesamiento de lo ingresado ha pasado a la seccion de analisis
+sintactico, llamada Wernicke.
+
+La linea 2 muestra las palabras recibidas (pone musica).
+
+La linea 3 muestra el usuario que ha hecho el pedido (marcos). Cada cliente tiene definido
+un usuario. De esta forma dos usuarios pueden dar la misma orden y generar resultados diferentes.
+
+La linea 4 muestra las TAGS que han sido detectadas en la oracion. Esto de acuerdo al archivo
+'config/dictionary.conf'
+
+La linea 5 muestra que no encuentra el archivo 'hand/+ACC_go_ACC++OBJ_music_OBJ+'. 
+
+La linea 6 anuncia que, al no encontrar el archivo '+ACC_go_ACC++OBJ_music_OBJ+' se ejecuta
+el archivo 'hand/+NOTAGS+'
+
+La linea 7 muestra el resultado de la ejecucion. Esta es la respuesta que se envia al cliente.
+
+
+NOTA: la ejecucion de cada script lleva como parametros 1 y 2 respectivamente el usuario y
+el string. Puede programar estos ingresos para utilizarlos a su gusto. Por ejemplo, en el
+caso anterior se esta ejecutando lo siguiente:
+
+			# +NOTAGS+ marcos pone+musica
+
+En un script bash los parametros pueden ser capturados como las variables $1 y $2

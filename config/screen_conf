@@ -1,0 +1,19 @@
+startup_message off
+
+# Green text, time, and date; windows in blue:
+
+hardstatus alwayslastline "%{kr} %H %{Rk} %-w%50>%{yk}<%t>%{rk}%+w %{ky}%<%>%=%c %d-%M "
+
+# Atajos personalizados
+# bind F7  to detach screen session from this terminal
+# bind F8  to kill current screen window.
+# bind F9  to create a new screen
+# bind F10 to rename current screen window
+# bind F11 to move to previous window
+# bind F12 to move to next window
+bindkey -k k7 detach
+bindkey -k k; kill
+bindkey -k k9 screen
+bindkey -k k2 title
+bindkey -k F1 prev
+bindkey -k F2 next
