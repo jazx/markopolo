@@ -18,9 +18,11 @@ google-chrome --app=http://localhost:9081/listener.html 2&> /dev/null &
 while [ -z "`wmctrl -l | grep 'Markopolo Ear'`" ];do echo -n "." ; sleep 0.15 ; done ; echo '.'
 
 echo '--> Ubicando ventana' ; 
+# en xfce4 agrega un margen de 45 pixeles en la parte superior
+# xfconf-query -c xfwm4 -p /general/margin_top -s 45
+
 WIN=`wmctrl -l | grep "Markopolo Ear" | awk '{print $1}'`
 xprop -id $WIN -f _MOTIF_WM_HINTS 32c -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0" 
-
 wmctrl -R 'Markopolo Ear' -b add,sticky 
 wmctrl -R 'Markopolo Ear' -b add,above 
 wmctrl -R 'Markopolo Ear' -b add,skip_taskbar
