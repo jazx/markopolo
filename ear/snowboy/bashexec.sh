@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#borra la cache del navegador para que se actualice mas rapido la respuesta
+rm -Rf /home/$USER/.cache/google-chrome
+
+
 GO_FILE=../webclient/sb.touch
 
 
