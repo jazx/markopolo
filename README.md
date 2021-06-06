@@ -9,8 +9,12 @@ Pequeño y liviano asistente escrito en python3, html y javascript. Incluye hotw
 <br>
 <i>1- Instalar dependencias<br></i>
 ~ sudo apt install python3-pyaudio libatlas-base-dev screen wmctrl xdotool
-<br>
-<i>2- Clonar repositorio<br></i>
+<br><br>
+<i>2- Instalar Google Chrome<br></i>
+Visitar https://www.google.com/chrome/index.html<br>
+para descargar e instalar el archivo DEB.
+<br><br>
+<i>3- Clonar repositorio<br></i>
 ~ git clone http://github.com/jazx/markopolo
 <br>
 <br>
