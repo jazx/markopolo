@@ -1,15 +1,10 @@
-portaudio-dev 
-python3-dev (ubuntu/mint)
+DEPENDENCIAS
 
-pip3 install setuptools
-pip3 install pyaudio 
-
+# para Linux Mint 20.1 XFCE 
+python3-pyaudio
 libatlas-base-dev
-
-
 screen
 google-chrome
 wmctrl
-python3
 xrandr
 xdotool
