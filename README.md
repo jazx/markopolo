@@ -3,11 +3,11 @@
 Pequeño y liviano asistente escrito en python3. Incluye hotword, reconocimiento de voz y acciones personalizables.
 
 
-INSTALL
+# INSTALL
 Linuix Mint 20.1 - XFCE
 
-Instalar dependencias
+1. Instalar dependencias
 $ sudo apt install python3-pyaudio libatlas-base-dev screen wmctrl xdotool
 
-Clonar repositorio
+2. Clonar repositorio
 git clone http://github.com/jazx/markopolo
