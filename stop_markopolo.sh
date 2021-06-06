@@ -14,3 +14,5 @@ kill `ps aux | grep 'SCREEN -c ../config/screen_conf -S markopolo_brain -d -m ./
 echo '--> Cerrando Snowboy'
 kill `ps aux | grep 'SCREEN -c ../../config/screen_conf -S markopolo_snowboy -d -m ./markopolo-hotword-deamon.py' | grep -v grep | awk '{print $2}'` 2> /dev/null
 
+#quitando margen superior en el workspace de xfce4 
+xfconf-query -c xfwm4 -p /general/margin_top -s 0
