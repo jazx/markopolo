@@ -17,4 +17,13 @@ para descargar e instalar el archivo DEB.
 
 ~ git clone http://github.com/jazx/markopolo
 
+4- Dar permisos al microfono
+
+~ cd markopolo
+~ sh configurar.sh
+
+(cuando se abra el navegador hacer clic en la esquina superior izquierda
+y hacer clic en PERMITIR cuando el navegaor pregunte por el acceso al mic.)
+
+
 
