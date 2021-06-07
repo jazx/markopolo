@@ -1,6 +1,10 @@
 # markopolo
 
-Pequeño y liviano asistente escrito en python3, html y javascript. Incluye hotword, reconocimiento de voz y acciones personalizables.
+Pequeño y liviano asistente escrito en python3, html y javascript. Incluye hotword, reconocimiento de voz y acciones personalizables. 
+
+Puede ver una demostracion en https://youtu.be/nRRHNWvaryU
+
+
 
 INSTALACION / Linuix Mint 20.1 - XFCE
 
