@@ -30,4 +30,8 @@ para descargar e instalar el archivo DEB.
 y hacer clic en PERMITIR cuando el navegaor pregunte por el acceso al mic.)
 
 
+Video de la instalacion:
+https://youtu.be/PpXvSYYjAzw
+
+
 
