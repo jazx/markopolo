@@ -1,6 +1,10 @@
 # markopolo
 
-Pequeño y liviano asistente escrito en python3, html y javascript. Incluye hotword, reconocimiento de voz y acciones personalizables.
+Pequeño y liviano asistente escrito en python3, html y javascript. Incluye hotword, reconocimiento de voz y acciones personalizables. 
+
+Puede ver una demostracion en https://youtu.be/nRRHNWvaryU
+
+
 
 INSTALACION / Linuix Mint 20.1 - XFCE
 
@@ -24,6 +28,10 @@ para descargar e instalar el archivo DEB.
 
 (cuando se abra el navegador hacer clic en la esquina superior izquierda
 y hacer clic en PERMITIR cuando el navegaor pregunte por el acceso al mic.)
+
+
+Video de la instalacion:
+https://youtu.be/PpXvSYYjAzw
 
 
 
