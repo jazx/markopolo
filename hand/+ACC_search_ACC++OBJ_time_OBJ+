@@ -1,0 +1,5 @@
+#!/bin/bash
+
+HORAACTUAL=`date +%H:%M`
+
+echo "Son las $HORAACTUAL"
