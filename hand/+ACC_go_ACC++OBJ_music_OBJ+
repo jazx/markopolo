@@ -3,10 +3,11 @@
 INGRESO=$2
 USUARIO=$1
 
+
 notify-send 'Markopolo' 'Abriendo Spotify'
 
 spotify 2&> /dev/null &
 
-aplay `ls ../voice/endwork/* | shuf -n 1`
+markopolo-randomwav ../voice/endwork
 
 echo 'Ya abri Spotify'

@@ -3,6 +3,8 @@
 #identifica el directorio donde estan los archivos
 basedir=`readlink -e $0 | sed 's:\/[^\/]*$::g'`
 
+echo '--> Estableciendo nuevo PATH'
+PATH=$PATH:$basedir/bin
 
 echo '--> Iniciando el servidor Brain'
 cd $basedir/brain

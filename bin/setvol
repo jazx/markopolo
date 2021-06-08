@@ -1,0 +1,149 @@
+#!/bin/bash
+
+##########################################################################################
+#                                                                                        #
+#      -setvol- fue creado por Pablo Woods | Jazx. 2014. psi.woods@gmail.com             #
+#                                                                                        #
+#      Todo el contenido de este desarrollo se encuentra bajo licencia:                  #
+#      Creative Commons Atribución-NoComercial-CompartirDerivadasIgual 2.5 Argentina     #
+#                                                                                        #
+##########################################################################################
+
+# Este script solo funciona en sistemas cuya salida del comando
+# 'amixer' es la siguiente:
+#
+#Simple mixer control 'Master',0
+#  Capabilities: pvolume pswitch pswitch-joined penum
+#  Playback channels: Front Left - Front Right
+#  Limits: Playback 0 - 65536
+#  Mono:
+#  Front Left: Playback 65536 [100%] [on]
+#  Front Right: Playback 65536 [100%] [on]
+#Simple mixer control 'Capture',0
+#  Capabilities: cvolume cswitch cswitch-joined penum
+#  Capture channels: Front Left - Front Right
+#  Limits: Capture 0 - 65536
+#  Front Left: Capture 11880 [18%] [on]
+#  Front Right: Capture 11880 [18%] [on]
+#
+#
+
+#sale de setvol si hay mas de una entrada en alsa
+if [ `pacmd list-sinks | grep 'volume: front-left' | wc -l` -gt 1 ]; then echo "HDMI debe estar desactivado para operar setvol" ; exit 0 ; fi
+
+SINK=`pacmd stat | awk -F": " '/^Default sink name: /{print $2}'`
+
+
+PARAMETRO1=$1
+PARAMETRO2=$2
+
+ayuda(){
+	echo "setvol - Ayuda"
+	echo 
+	echo "          Usar: setvol [0-100] [+/-]     o     setvol get"
+	echo
+	echo "Ej: setvol 20         - setea el volumen al 20%"
+	echo "    setvol 20 +       - aumenta el volumen 20% por sobre el actual"
+	echo "    setvol get        - muestra el porcentaje del volumen actual"
+	echo
+	echo "-setvol- fue creado por Jazx. psi.woods@gmail.com - 2014"
+	exit
+}
+
+if [ "$PARAMETRO1" = get ]
+	then
+	ACTUALPERC=`pacmd list-sinks | grep 'volume: front-left' | awk '{print $5}' | sed s/%//g`
+	echo "Volumen = %$ACTUALPERC"
+	exit
+fi
+
+
+
+if [ "$PARAMETRO1" -eq $1 2> /dev/null ]; then
+
+	if [ -z "$PARAMETRO1" ]
+		then
+			ayuda
+		elif [ $PARAMETRO1 -gt 100 ]
+		then
+			ayuda
+	fi
+	
+	if [ "$PARAMETRO2" = "+" ]
+		then
+		#echo hay que subir
+		ACTUALPERC=`pacmd list-sinks | grep 'volume: front-left' | awk '{print $5}' | sed s/%//g`
+		NEWUPVOL=`expr $ACTUALPERC + $PARAMETRO1`
+		if [ $NEWUPVOL -gt 100 ]
+		then
+			PARAMETRO1=100
+		else
+			PARAMETRO1=$NEWUPVOL
+		fi
+	fi
+	
+	if [ "$PARAMETRO2" = "-" ]
+		then
+		#echo hay que bajar
+		ACTUALPERC=`pacmd list-sinks | grep 'volume: front-left' | awk '{print $5}' | sed s/%//g`
+		NEWDWVOL=`expr $ACTUALPERC - $PARAMETRO1`
+		if [ $NEWDWVOL -lt 0 ]
+		then
+			PARAMETRO1=0
+		else
+			PARAMETRO1=$NEWDWVOL
+		fi
+	fi
+
+else
+    ayuda
+fi
+
+
+INTERVALO=0.001
+SYSVOL=`pacmd list-sinks | grep 'volume: front-left' | awk '{print $5}' | sed s/%//g`
+
+# Este sector del script corresponde usarse cuando la salida de amixer
+# viene en dB y debe realizarse una funcion inversa.
+# Por la misma razon, en este caso deben invertirse los valores en la
+# funcion recursivo() - Cambiar + por - y viceversa
+# Tambien debe reemplazarse el metodo de lectura de la variable SYSVOL y 
+# similares por alguna que lea los dB.
+#
+#sincoma1=`expr 100 - $PARAMETRO1`
+#sincoma2=`expr $sincoma1 \* 64`
+#voldb=`expr $sincoma2 / 100`
+voldb=$PARAMETRO1
+
+recursivo(){
+if [ $SYSVOL -eq $voldb ]
+then
+	#echo Listo\!
+	exit
+elif [ $SYSVOL -gt $voldb ]
+then
+	#echo "El volumen del sistema es menor que el solicitado"
+	#echo Subiendo volumen
+	#amixer sset Master 1%- 1>/dev/null
+	pactl set-sink-volume $SINK -1%
+	SYSVOL=`pacmd list-sinks | grep 'volume: front-left' | awk '{print $5}' | sed s/%//g`
+	sleep $INTERVALO
+else
+	#echo "El volumen del sistema es mayor que el solicitado"
+	#echo Bajando volumen
+	#amixer sset Master 1%+ 1>/dev/null
+	pactl set-sink-volume $SINK +1%
+	SYSVOL=`pacmd list-sinks | grep 'volume: front-left' | awk '{print $5}' | sed s/%//g`
+	sleep $INTERVALO
+fi
+recursivo
+}
+
+# espera que otra sesion de setvol termine
+NRO_SETVOLS=`ps -A | grep setvol | wc -l`
+while [ $NRO_SETVOLS -gt 2 ]; do
+    NRO_SETVOLS=`ps -A | grep setvol | wc -l`
+done
+
+recursivo
+

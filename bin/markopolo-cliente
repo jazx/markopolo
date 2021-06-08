@@ -1,0 +1,29 @@
+#!/bin/bash
+
+ayuda()
+{
+echo
+echo Use: cliente-consola [usuario] [contraseña] [frase de texto entre comillas]
+echo  ej: cliente-consola juan mipassword \'baja el volumen\' 
+echo
+}
+
+if [ -z $1 ];then
+	ayuda
+	exit
+fi
+
+
+basedir=`readlink -e $0 | sed 's:\/[^\/]*$::g'`
+
+USUARIO=$1
+PASSWD=$2
+FRASE=$3
+
+FRASE2SEND=`echo $FRASE | sed s/\ /+/g`
+
+
+STRINGFINAL="http://localhost:9080/PSW_`echo $PASSWD`_PSWUSR_`echo $USUARIO`_USRCOM_@`echo $FRASE2SEND`_COM"
+
+#echo $FRASE2SEND
+curl $STRINGFINAL
