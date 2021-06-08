@@ -23,7 +23,7 @@ FRASE=$3
 FRASE2SEND=`echo $FRASE | sed s/\ /+/g`
 
 
-STRINGFINAL="http://localhost:9080/PSW_`echo $PASSWD`_PSWUSR_`echo $USUARIO`_USRCOM_`echo $FRASE2SEND`_COM"
+STRINGFINAL="http://localhost:9080/PSW_`echo $PASSWD`_PSWUSR_`echo $USUARIO`_USRCOM_@`echo $FRASE2SEND`_COM"
 
 #echo $FRASE2SEND
 curl $STRINGFINAL

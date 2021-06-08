@@ -75,8 +75,8 @@ var mppass = 'venecia'
 					// hacemos get al servidor
 					console.log('voy a hacer el get request')
                const mygetrq = new XMLHttpRequest();
-               //var urlbase = 'http://localhost:9080/PSW_venecia_PSWUSR_marcos_USRCOM_';
-               var urlbase = 'http://localhost:' + mpport + '/PSW_' + mppass + '_PSWUSR_' + mpuser + '_USRCOM_';
+               //var urlbase = 'http://localhost:9080/PSW_venecia_PSWUSR_marcos_USRCOM_@';
+               var urlbase = 'http://localhost:' + mpport + '/PSW_' + mppass + '_PSWUSR_' + mpuser + '_USRCOM_@';
                var urlcontenido = porId.replace(/ /g, "+") ;
                var urlcierre = '_COM';
 					const url= urlbase + urlcontenido + urlcierre;
@@ -230,8 +230,8 @@ var mppass = 'venecia'
                         console.log('iniciando get')
                         
                         const mygetrq = new XMLHttpRequest();
-                        //var urlbase = 'http://localhost:9080/PSW_venecia_PSWUSR_marcos_USRCOM_';
-                        var urlbase = 'http://localhost:' + mpport + '/PSW_' + mppass + '_PSWUSR_' + mpuser + '_USRCOM_';
+                        //var urlbase = 'http://localhost:9080/PSW_venecia_PSWUSR_marcos_USRCOM_@';
+                        var urlbase = 'http://localhost:' + mpport + '/PSW_' + mppass + '_PSWUSR_' + mpuser + '_USRCOM_@';
                         var urlcontenido = finalResult.replace(/ /g, "+") ;
                         var urlcierre = '_COM';
 								const url= urlbase + urlcontenido + urlcierre;
