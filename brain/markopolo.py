@@ -2,8 +2,11 @@
 
 from http.server import  BaseHTTPRequestHandler, HTTPServer
 import os
+import subprocess
 import re
+#import stat
 import wernicke
+import answer
 import spinal_reflex
 from markopolo_config import *
 
@@ -24,6 +27,11 @@ def first_corrections(ingreso):
 	ingreso = ingreso.replace('%C3%AD','i')
 	ingreso = ingreso.replace('%C3%B3','o')
 	ingreso = ingreso.replace('%C3%BA','u')
+	ingreso = ingreso.replace('á','a')
+	ingreso = ingreso.replace('é','e')
+	ingreso = ingreso.replace('í','i')
+	ingreso = ingreso.replace('ó','o')
+	ingreso = ingreso.replace('ú','u')
 	#Eñes
 	ingreso = ingreso.replace('%C3%91','N')
 	ingreso = ingreso.replace('%C3%B1','n')
@@ -79,7 +87,6 @@ class myHandler(BaseHTTPRequestHandler):
         
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin','*')
-        #self.send_header('Content-type','text/plain; charset=utf-8')
         self.send_header('Content-type','text/html')
         self.end_headers()
         
@@ -108,11 +115,20 @@ class myHandler(BaseHTTPRequestHandler):
         		#define provisoriamente el output como la salida de spinal_reflex
         		txtoutput = reflex_response[1]
         		
-        		#si spinal_reflex no generó acción se continua con el procesamiento desde wernicke
-        		if(reflex_response[0] != 'stop'):
-        			print('Wernicke Area ACTIVE')
-        			# define output (txtoutput) from 'wernicke' module work
-        			txtoutput = wernicke.procesar(txtinput,user) #.encode("utf-8")
+        		#comprueba que no sea una respuesta (ve la presencia de un archivo temporal)
+        		#si es una respuesta ejecuta el archivo temporal
+        		file_answer = '/tmp/markopolo-answer'
+        		if (os.path.exists(file_answer)):
+        			print('Incomming answer DETECTED')
+        			txtoutput = answer.answerexec (file_answer,com,user)
+        			os.remove(file_answer)
+        			
+        		else:
+        			#si spinal_reflex no generó acción, el ingreso no fue una respuesta se continua con el procesamiento desde wernicke
+        			if(reflex_response[0] != 'stop'):
+        				print('Wernicke Area ACTIVE')
+        				# define output (txtoutput) from 'wernicke' module work
+        				txtoutput = wernicke.procesar(txtinput,user) #.encode("utf-8")
         
         else:
         		print('Conexion rechazada. Password incorrecto.')

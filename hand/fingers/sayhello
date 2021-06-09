@@ -1,0 +1,8 @@
+#!/bin/bash
+
+USER=$1
+ANSWER=$2
+
+NOMBRE=`echo $ANSWER | sed 's/^@//g' | sed 's/+/ /g'`
+
+echo Hola $NOMBRE, gracias por saludar.

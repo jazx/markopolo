@@ -1,0 +1,32 @@
+#!/bin/bash
+
+
+QUESTION='Quien sos?'
+
+WAIT_TIME='15s'
+
+FINGER_FILE=sayhello
+
+TIME_OUT_ACTION()
+{
+
+	echo 'Todos me ignoran'
+
+}
+
+
+#############################################################################
+
+
+
+# create link to finger file
+
+#definiendo directorio actual
+basedir=`readlink -e $0 | sed 's:\/[^\/]*$::g'`
+#borrando preventivamente en caso de que el archivo exista
+rm /tmp/markopolo-answer 2> /dev/null
+#creando el link al archivo en cuestion
+ln -s $basedir/fingers/$FINGER_FILE /tmp/markopolo-answer
+
+
+echo $QUESTION
