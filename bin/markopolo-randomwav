@@ -1,3 +1,7 @@
 #!/bin/bash
 
+if [ -z "$1" ];then
+	echo Use: markopolo-randomwav [wav directory]
+fi
+
 aplay `ls ./$1/* | shuf -n 1` 2> /dev/null

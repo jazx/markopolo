@@ -23,7 +23,7 @@ def tagcreator (intodicc):
 		
 		# 'print' usado para testear si el diccionario es leido como corresponde
 		# desactivado por defecto
-		# print(tag,' INCLUYE ', palabras)
+		#print(tag,' INCLUYE ', palabras)
 		
 		for word in palabras:
 			intodicc = intodicc.replace(word, tag)

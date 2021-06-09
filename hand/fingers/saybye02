@@ -1,0 +1,23 @@
+#!/bin/bash
+
+USER=$1
+ANSWER=$2
+
+
+
+QUESTION="Ah si... he escuchado hablar de $ANSWER. Tiene arboles?"
+
+WAIT_TIME='20s'
+
+FINGER_FILE=saybye03
+
+TIME_OUT_ACTION='
+
+notify-send "Markopolo" "Me hubiera gustado saber el nombre de tu barrio."
+
+'
+
+###################################################################################
+############  NO EDIT #############################################################
+###################################################################################
+markopolo-makequestion "$QUESTION" "$WAIT_TIME" "$FINGER_FILE" "$TIME_OUT_ACTION"

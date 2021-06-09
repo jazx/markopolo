@@ -1,0 +1,12 @@
+#!/bin/bash
+
+USER=$1
+ANSWER=$2
+
+if [ $ANSWER == "@si" ];then
+	echo Que lindo, $USER. Amo los arboles. Bueno... Adios.
+fi
+
+if [ $ANSWER == "@no" ];then
+	echo Que pena, $USER. Bueno, planta algunos. Hasta luego.
+fi

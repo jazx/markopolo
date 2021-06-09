@@ -1,0 +1,49 @@
+#!/bin/bash
+
+if [ -z "$4" ]; then
+   echo Use: markopolo-makequestion [question] [timeout] [finger file] [timeout action]
+   exit
+fi
+
+QUESTION=$1
+
+WAIT_TIME=$2
+
+FINGER_FILE=$3
+
+TIME_OUT_ACTION=$4
+
+USER=$5
+
+#definiendo archivo temporal de respuesta timeout
+time_out_file=/tmp/markopolo-timeout-$FINGER_FILE
+
+#borrando procesos y archivo temporales
+kill `ps aux | grep 'SCREEN -c ../config/screen_conf -S TMP_markopolo_answer_' | grep -v grep | awk {'print $2'}`
+rm /tmp/markopolo-timeout-* 2> /dev/null
+
+#definiendo directorio actual
+basedir=`readlink -e $0 | sed 's:\/[^\/]*$::g'`
+
+#escribiendo el archivo temporal
+echo '#!/bin/bash' > $time_out_file
+echo "echo Init temporal script" >> $time_out_file
+echo "echo Waiting 1 seg" >> $time_out_file
+echo "sleep 1s" >> $time_out_file
+echo "echo Make link to finger" >> $time_out_file
+echo "ln -s $basedir/../hand/fingers/$FINGER_FILE /tmp/markopolo-answer" >> $time_out_file
+echo "echo Waiting for answer..." >> $time_out_file
+echo "sleep $WAIT_TIME" >> $time_out_file
+echo 'if [ -f /tmp/markopolo-answer ];then' >> $time_out_file
+echo "$TIME_OUT_ACTION" >> $time_out_file
+echo 'rm /tmp/markopolo-answer' >> $time_out_file
+echo 'fi' >> $time_out_file
+echo "rm $time_out_file" >> $time_out_file
+echo 'echo Timeout'  >> $time_out_file
+#dando permisos de ejecucion
+chmod +x $time_out_file
+
+#ejecutando archivo temporal en detached
+screen -c ../config/screen_conf -S TMP_markopolo_answer_$FINGER_FILE -d -m $time_out_file
+
+echo $QUESTION

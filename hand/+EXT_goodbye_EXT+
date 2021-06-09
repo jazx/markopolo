@@ -1,0 +1,24 @@
+#!/bin/bash
+
+USER=$1
+INPUTTXT=$2
+
+
+
+QUESTION="Adios $USER. Pero antes una pregunta. En que ciudad vives?"
+
+WAIT_TIME='20s'
+
+FINGER_FILE=saybye01
+
+TIME_OUT_ACTION='
+
+notify-send "Markopolo" "Rayos! Nadie me contesta las preguntas"
+
+'
+
+
+#################################################################################
+##########  NO EDIT #############################################################
+#################################################################################
+markopolo-makequestion "$QUESTION" "$WAIT_TIME" "$FINGER_FILE" "$TIME_OUT_ACTION"
