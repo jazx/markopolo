@@ -61,3 +61,8 @@ https://youtu.be/WiW1LX7GFB4
 
 7- MARKOPOLO - Asistente para Linux en Python - Parte 7. RECONOCIMIENTO DE VOZ Y CLIENTES
 https://youtu.be/GAmsE9reBuo
+
+
+8- MARKOPOLO - Asistente para Linux en Python - Parte 8. PREGUNTAS DEL SERVIDOR
+https://youtu.be/HFI8qgM8ZwE
+
