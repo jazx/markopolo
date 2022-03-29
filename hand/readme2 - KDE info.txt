@@ -5,7 +5,7 @@
 
 
 
-gdbus call --session \ --dest=org.freedesktop.Notifications \ --object-path=/org/freedesktop/Notifications \ --method=org.freedesktop.Notifications.Notify \ "Markopolo" 0 "" 'Mensaje' '' \ '[]' '{"urgency": <1>}' 5000
+gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify "Markopolo" 0 "" 'Abriendo Youtube' '' \ '[]' '{"urgency": <1>}' 5000
 
 
 
